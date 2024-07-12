@@ -1,1 +1,1 @@
-# Calculator
+This is a calculator project that uses html, css, js to create a functional calculator. 
