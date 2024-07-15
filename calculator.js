@@ -41,6 +41,9 @@ const updateDisplay = (value) => {
     if (displayValue === '0'){
         displayValue = value;
     }
+    else if (operator != undefined) {
+        displayValue = value;
+    }
     else {
         displayValue = displayValue + value;
     }
@@ -56,6 +59,7 @@ numberButtons.forEach(button => {
     });
 });
 
+// Add event listeners for operator buttons
 const operatorButtons = document.querySelectorAll('.operator'); 
 
 operatorButtons.forEach(button => {
@@ -64,6 +68,39 @@ operatorButtons.forEach(button => {
         operator = button.textContent;
         displayValue = '0';
     });
+});
+
+// Add event listeners for equal button
+const equalButton = document.querySelector('.equals'); 
+
+equalButton.addEventListener('click', function() {
+    secondNum = displayValue;
+    // check to see if division by 0 has occured
+    if (operator === '/' && secondNum === '0'){
+        displayValue = '0';
+        updateDisplay("Error");
+        operator = undefined;
+        displayValue = '0';
+        return;
+    }
+    // if above case hasnt occured then use operate function to set the display 
+    updateDisplay(operate(operator, Number(firstNum), Number(secondNum)).toString());
+    firstNum = 0;
+    secondNum = 0;
+    operator = undefined;
+    displayValue = '0';
+});
+
+// Add event listeners for clear button
+const clearButton = document.querySelector('.clear');
+// sets firstnum and secondnum to 0 and the operator to undefined and displayValue to '0' and the displaycontent so that after using the clear
+// button the user can input buttons as usual
+clearButton.addEventListener('click', function() {
+    firstNum = 0;
+    secondNum = 0;
+    operator = undefined;
+    displayValue = '0';
+    updateDisplay('0');
 });
 
 
