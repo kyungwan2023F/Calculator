@@ -41,9 +41,6 @@ const updateDisplay = (value) => {
     if (displayValue === '0'){
         displayValue = value;
     }
-    else if (operator != undefined) {
-        displayValue = value;
-    }
     else {
         displayValue = displayValue + value;
     }
@@ -83,6 +80,7 @@ equalButton.addEventListener('click', function() {
         displayValue = '0';
         return;
     }
+    displayValue = '0';
     // if above case hasnt occured then use operate function to set the display 
     updateDisplay(operate(operator, Number(firstNum), Number(secondNum)).toString());
     firstNum = 0;
