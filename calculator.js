@@ -17,6 +17,7 @@ const add = function(num1, num2) {
   let firstNum = 0;
   let operator;
   let secondNum = 0;
+  let justCalculated = false;
   let displayValue = '0';
 
   const operate = function (operator, num1, num2) {
@@ -38,11 +39,16 @@ const display = document.querySelector('.calc-display');
 
 
 const updateDisplay = (value) => {
-    if (displayValue === '0'){
+    if (justCalculated){
         displayValue = value;
+        justCalculated = false;
     }
     else {
-        displayValue = displayValue + value;
+        if (displayValue === '0') {
+            displayValue = value;  
+        } else {
+            displayValue += value;
+        }
     }
     display.textContent = displayValue;
 };
@@ -56,6 +62,15 @@ numberButtons.forEach(button => {
     });
 });
 
+// Add event listeners for dotButton aka decimal button
+const dotButton = document.querySelector('.dot'); 
+
+dotButton.addEventListener('click', function() {
+    if (!displayValue.includes(".")) {
+        updateDisplay('.');
+    }
+});
+
 // Add event listeners for operator buttons
 const operatorButtons = document.querySelectorAll('.operator'); 
 
@@ -64,6 +79,7 @@ operatorButtons.forEach(button => {
         firstNum = displayValue;
         operator = button.textContent;
         displayValue = '0';
+        justCalculated = false;
     });
 });
 
@@ -85,8 +101,8 @@ equalButton.addEventListener('click', function() {
     updateDisplay(operate(operator, Number(firstNum), Number(secondNum)).toString());
     firstNum = 0;
     secondNum = 0;
+    justCalculated = true;
     operator = undefined;
-    displayValue = '0';
 });
 
 // Add event listeners for clear button
