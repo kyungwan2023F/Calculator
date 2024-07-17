@@ -39,15 +39,23 @@ const display = document.querySelector('.calc-display');
 
 
 const updateDisplay = (value) => {
-    if (justCalculated){
-        displayValue = value;
-        justCalculated = false;
+    if (value === '-'){
+        displayValue = '-' + displayValue;
+    }
+    else if (value === '+'){
+        displayValue = displayValue.substring(1);
     }
     else {
-        if (displayValue === '0') {
-            displayValue = value;  
-        } else {
-            displayValue += value;
+        if (justCalculated){
+            displayValue = value;
+            justCalculated = false;
+        }
+        else {
+            if (displayValue === '0') {
+                displayValue = value;  
+            } else {
+                displayValue += value;
+            }
         }
     }
     display.textContent = displayValue;
@@ -115,6 +123,17 @@ clearButton.addEventListener('click', function() {
     operator = undefined;
     displayValue = '0';
     updateDisplay('0');
+});
+
+const signButton = document.querySelector('.sign');
+
+signButton.addEventListener('click', function() {
+    if (!displayValue.includes('-')){
+        updateDisplay('-');
+    }
+    else {
+        updateDisplay('+');
+    }
 });
 
 
