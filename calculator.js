@@ -40,7 +40,12 @@ const display = document.querySelector('.calc-display');
 
 const updateDisplay = (value) => {
     if (value === '-'){
-        displayValue = '-' + displayValue;
+        if (displayValue === '0'){
+            displayValue = value;
+        }
+        else {
+            displayValue = '-' + displayValue;
+        }
     }
     else if (value === '+'){
         displayValue = displayValue.substring(1);
