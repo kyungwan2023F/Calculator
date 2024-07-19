@@ -129,9 +129,10 @@ clearButton.addEventListener('click', function() {
     displayValue = '0';
     updateDisplay('0');
 });
-
+// Add event listeners for sign Button
 const signButton = document.querySelector('.sign');
-
+// if signbutton is pressed when negative is already in front then passes '-' as parameter to remove negative sign otherwise
+// passes '+' to add negative sign using updateDisplay
 signButton.addEventListener('click', function() {
     if (!displayValue.includes('-')){
         updateDisplay('-');
@@ -141,8 +142,13 @@ signButton.addEventListener('click', function() {
     }
 });
 
-
-
+// Add event listeners for percent Button
+const percentButton = document.querySelector('.percent');
+// sets justCalculated to true to remove set displayValue to the percent value using updateDisplay function
+percentButton.addEventListener('click', function() {
+    justCalculated = true;
+    updateDisplay((Number(displayValue) / 100).toString());    
+});
 
 
 
